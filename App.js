@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Pressable, StatusBar, Text } from 'react-native';
 import CategoriesScreen from './screens/CategoriesScreen';
+import MealsOverViewScreen from './screens/MealsOverView';
 
 const Stack = createStackNavigator()
 
