@@ -37,7 +37,10 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         flex: 1,
+        padding: 16,
         borderRadius: 8,  // Had to add it because parent view had this only
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     title: {
         fontWeight: 'bold',
