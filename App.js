@@ -26,7 +26,15 @@ export default function App() {
             //   }
             // }} we can also set the title dynamically in the MealsOverViewScreen.js file using navigation.setOptions() method
           />
-          <Stack.Screen name="MealDetails" component={MealDetailsScreen} />
+          <Stack.Screen 
+            name="MealDetails" 
+            component={MealDetailsScreen} 
+            // options={{ headerRight: () => 
+            // {
+            //   return <Button title="press me"/> We can set header here and in component itself using setOptions() method.
+            // }
+            // }}
+            />
         </Stack.Navigator>
       </NavigationContainer>
     </>
