@@ -1,10 +1,25 @@
 import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
 import { MEALS } from "../data/dummyData";
 import MealsDetails from "../components/MealsDetails";
+import { useLayoutEffect } from "react";
+import IconButton from "../components/IconButton";
 
-const MealDetailsScreen = ({ route }) => {
+const MealDetailsScreen = ({ route, navigation }) => {
     const mealId = route.params.mealId;
     const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+    const headerButtonHandler = () => {
+        console.log('we can do whichever screen we want to open')
+    }
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return <IconButton onTap={headerButtonHandler} icon="star"/>
+            }
+        });
+    }, [navigation, headerButtonHandler]);
+
 
     return (
         <ScrollView style={styles.rootContainer}>
