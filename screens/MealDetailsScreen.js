@@ -1,24 +1,42 @@
 import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
 import { MEALS } from "../data/dummyData";
 import MealsDetails from "../components/MealsDetails";
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
+// import { FavoritesContext } from "../store/context/favoritesContext";
 import IconButton from "../components/IconButton";
+import { useSelector, useDispatch } from "react-redux";
+import { addFavorite, removeFavorite } from "../store/redux/favorites";
 
 const MealDetailsScreen = ({ route, navigation }) => {
+    // const favMealsContext = useContext(FavoritesContext);
+
+    const favoriteMealIds = useSelector((state) => state.favoriteMeals.ids);
+    const dispatch = useDispatch();
     const mealId = route.params.mealId;
     const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+    // const mealIsFavorite = favMealsContext.ids.includes(mealId);
+    const mealIsFavorite = favoriteMealIds.includes(mealId);
 
-    const headerButtonHandler = () => {
-        console.log('we can do whichever screen we want to open')
+    const changeFavHandler = () => {
+        if (mealIsFavorite) {
+            // favMealsContext.removeFavorite(mealId);
+            dispatch(removeFavorite({ id: mealId }));
+        } else {
+            // favMealsContext.addFavorite(mealId);
+            dispatch(addFavorite({ id: mealId }));
+        }
     }
 
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => {
-                return <IconButton onTap={headerButtonHandler} icon="star"/>
+                return <IconButton 
+                    onTap={changeFavHandler}
+                    icon={mealIsFavorite ? "star" : "star-outline"}
+                />
             }
         });
-    }, [navigation, headerButtonHandler]);
+    }, [navigation, changeFavHandler]);
 
 
     return (
