@@ -6,6 +6,10 @@ import MealsOverViewScreen from './screens/MealsOverView';
 import MealDetailsScreen from './screens/MealDetailsScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Favorites from './screens/Favorites';
+// import FavoritesContextProvider from './store/context/favoritesContext';
+import { store } from './store/redux/store';
+import { Provider } from 'react-redux';
+
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -21,32 +25,36 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{
-          headerStyle: { backgroundColor: '#351401' },
-          headerTintColor: 'white',
-          headerTitleStyle: { fontWeight: 'bold' },
-          contentStyle: { backgroundColor: '#3f2f25' }
-        }}>
-          <Stack.Screen name="Drawer" component={DrawerNavigator} options={{ headerShown: false }}/>
-          <Stack.Screen name="MealsOverView" component={MealsOverViewScreen} 
-            // options={({ route, navigation }) => {
-            //   return {
-            //     title: route.params.categoryName
-            //   }
-            // }} we can also set the title dynamically in the MealsOverViewScreen.js file using navigation.setOptions() method
-          />
-          <Stack.Screen 
-            name="MealDetails" 
-            component={MealDetailsScreen} 
-            // options={{ headerRight: () => 
-            // {
-            //   return <Button title="press me"/> We can set header here and in component itself using setOptions() method.
-            // }
-            // }}
+      {/* <FavoritesContextProvider> */}
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{
+            headerStyle: { backgroundColor: '#351401' },
+            headerTintColor: 'white',
+            headerTitleStyle: { fontWeight: 'bold' },
+            contentStyle: { backgroundColor: '#3f2f25' }
+          }}>
+            <Stack.Screen name="Drawer" component={DrawerNavigator} options={{ headerShown: false }}/>
+            <Stack.Screen name="MealsOverView" component={MealsOverViewScreen} 
+              // options={({ route, navigation }) => {
+              //   return {
+              //     title: route.params.categoryName
+              //   }
+              // }} we can also set the title dynamically in the MealsOverViewScreen.js file using navigation.setOptions() method
             />
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen 
+              name="MealDetails" 
+              component={MealDetailsScreen} 
+              // options={{ headerRight: () => 
+              // {
+              //   return <Button title="press me"/> We can set header here and in component itself using setOptions() method.
+              // }
+              // }}
+              />
+          </Stack.Navigator>
+        </NavigationContainer>
+      {/* </FavoritesContextProvider> */}
+      </Provider>
     </>
   );
 }
